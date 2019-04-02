@@ -15,3 +15,4 @@ class ReferralListCreate(generics.ListCreateAPIView):
 class ReferrelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Referral.objects.all()
     serializer_class = ReferralSerializer
+    lookup_field = 'title'
