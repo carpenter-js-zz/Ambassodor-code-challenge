@@ -1,18 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
-from django.shortcuts import render
 from referrals.models import Referral
 from referrals.serializers import ReferralSerializer
-from rest_framework import generics
+from rest_framework import viewsets
 
-
-class ReferralListCreate(generics.ListCreateAPIView):
+class ReferralViewSet(viewsets.ModelViewSet):
   queryset = Referral.objects.all()
   serializer_class = ReferralSerializer
-
-
-class ReferrelDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Referral.objects.all()
-    serializer_class = ReferralSerializer
-    lookup_field = 'title'

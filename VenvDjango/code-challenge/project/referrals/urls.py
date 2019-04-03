@@ -1,10 +1,7 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from . import views
+from rest_framework import routers
+from .views import ReferralViewSet
 
-urlpatterns = [
-  path('api/referral/', views.ReferralListCreate.as_view(),),
-  path('api/referral/<title>/', views.ReferrelDetail.as_view()),
-]
+router = routers.DefaultRouter()
+router.register('api/referrals', ReferralViewSet, 'referrals')
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+urlpatterns = router.urls 
