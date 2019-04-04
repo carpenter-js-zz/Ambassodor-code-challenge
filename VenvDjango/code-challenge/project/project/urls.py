@@ -2,5 +2,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('referrals.urls'), name='referrals'),
+    path('', include('frontend.urls')),
+    path('', include('referrals.urls'), name='referrals'), 
 ]
