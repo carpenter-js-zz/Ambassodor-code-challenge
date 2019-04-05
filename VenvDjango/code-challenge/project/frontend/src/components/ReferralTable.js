@@ -7,31 +7,67 @@ export class ReferralTable extends Component {
     this.props.dispatch(getReferrals());
   }
 
+  // generateRows(refData) {
+  //   refData.map((ref, index) => {
+  //     console.log('inside map, ref is: ', ref);
+  //     const row =
+
+  //       <tr key={index}>
+  //         <td>{ref.title}</td>
+  //         <td>{ref.click_count}</td>
+  //         <td>
+  //           <button>Edit</button>
+  //         </td>
+  //         <td>
+  //           <button>Delete</button>
+  //         </td>
+  //       </tr> 
+  //     console.log('row is: ', row);
+  //     return row;
+  //   });
+  // }
+  
 
   render() {
+    if (this.props.loading) {
+      return(
+        <p>Loading...</p>
+      );
+    }else if (this.props.error) {
+      return (
+        <p>{this.props.error}</p>
+      );
+    }
     
     return (
       <table className='table is-striped'>
         <thead>
           <tr>
-            <th>Link</th>
-            <th>clicks</th> 
+            <th>Referral</th>
+            <th>Clicks</th> 
             <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>Link name</td>
-            <td>0</td>
-            <td>
-              <button>Edit</button>
-            </td>
-            <td>
-              <button>Delete</button>
-            </td>
-          </tr>
+          {
+            this.props.referrals.map((ref, index) => {
+              console.log('inside map, ref is: ', ref);
+              return (
+                <tr key={index}>
+                  <td>{ref.title}</td>
+                  <td>{ref.click_count}</td>
+                  <td>
+                    <button>Edit</button>
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr> 
+              );
+            })
+          }
         </tbody>
       </table>
     )
@@ -40,7 +76,9 @@ export class ReferralTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    referrals: state.referrals.referrals
+    referrals: state.referrals.referrals,
+    loading: state.referrals.loading,
+    error: state.referrals.error
   }
 }
 

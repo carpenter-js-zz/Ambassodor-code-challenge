@@ -21,7 +21,7 @@ export const getReferralsError = error => ({
 
 export const getReferrals = () => dispatch => {
   dispatch(getReferralsRequest());
-    return fetch(`/api/referrals`)
+    return fetch(`/api/referrals/`)
         .then(res => {
             if (!res.ok) {
                 return Promise.reject(res.statusText);
