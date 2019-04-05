@@ -1,1 +1,1 @@
-export const GET_REFERRALS = 'GET_LEADS';
+export const GET_REFERRALS = 'GET_REFERRALS';
