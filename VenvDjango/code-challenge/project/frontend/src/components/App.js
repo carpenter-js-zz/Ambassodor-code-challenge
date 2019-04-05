@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import MainPage from './MainPage';
+import LandingPage from './LandingPage';
 
-export default class App extends Component {
-
-  render() {
-    return (
-      <h1>
-        Referrals
-      </h1>
-    )
-  }
+export default function App() {
+  return(
+    <React.Fragment>
+      <MainPage />
+      <LandingPage />
+    </React.Fragment> 
+  )
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
