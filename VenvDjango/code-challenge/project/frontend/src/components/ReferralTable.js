@@ -1,7 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getReferrals } from '../actions/referrals';
 
-export default class ReferralTable extends Component {
+export class ReferralTable extends Component {
+  componentDidMount() {
+    this.props.dispatch(getReferrals());
+  }
+
+
   render() {
+    
     return (
       <table className='table is-striped'>
         <thead>
@@ -29,3 +37,11 @@ export default class ReferralTable extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    referrals: state.referrals.referrals
+  }
+}
+
+export default connect(mapStateToProps)(ReferralTable);

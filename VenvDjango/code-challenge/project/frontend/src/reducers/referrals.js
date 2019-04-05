@@ -1,17 +1,38 @@
-import { GET_REFERRALS } from '../actions/types.js';
+import { 
+  GET_REFERRALS_REQUEST, 
+  GET_REFERRALS_SUCCESS, 
+  GET_REFERRALS_ERROR
+ } from '../actions/types.js';
 
 const initialState = {
-  referrals: []
+  loading: false,
+  error: null,
+  referrals: [],
 }
 
-export default function(state=initialState, action) {
+export default function referrals(state=initialState, action) {
   switch(action.type) {
-    case GET_REFERRALS:
+    case GET_REFERRALS_REQUEST:
       return {
         ...state,
+        loading: true
+      }
+
+    case GET_REFERRALS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         referrals: action.payload
       }
-      default:
-        return state;
+    
+    case GET_REFERRALS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    default:
+      return state;
   }
 }
