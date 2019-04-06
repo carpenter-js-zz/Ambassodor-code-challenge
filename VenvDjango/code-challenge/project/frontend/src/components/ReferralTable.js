@@ -2,32 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getReferrals } from '../actions/referrals';
 
-export class ReferralTable extends Component {
+class ReferralTable extends Component {
   componentDidMount() {
     this.props.dispatch(getReferrals());
   }
-
-  // generateRows(refData) {
-  //   refData.map((ref, index) => {
-  //     console.log('inside map, ref is: ', ref);
-  //     const row =
-
-  //       <tr key={index}>
-  //         <td>{ref.title}</td>
-  //         <td>{ref.click_count}</td>
-  //         <td>
-  //           <button>Edit</button>
-  //         </td>
-  //         <td>
-  //           <button>Delete</button>
-  //         </td>
-  //       </tr> 
-  //     console.log('row is: ', row);
-  //     return row;
-  //   });
-  // }
   
-
   render() {
     if (this.props.loading) {
       return(
@@ -53,7 +32,6 @@ export class ReferralTable extends Component {
         <tbody>
           {
             this.props.referrals.map((ref, index) => {
-              console.log('inside map, ref is: ', ref);
               return (
                 <tr key={index}>
                   <td>{ref.title}</td>

@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { saveNewReferral, postReferral } from '../actions/referrals';
 
+class ReferralForm extends Component {
 
-export default class ReferralForm extends Component {
+  // referral = this.props.newReferral;
+  // This isn't working, try something eslse
+  // because your not sending an opbject you fool!
+  onSubmit(e) {
+    e.preventDefault();
+    const referralObj = {title: this.props.newReferral};
+    this.props.dispatch(postReferral(referralObj));
+  }
+
   render() {
     return (
       <form 
         className="addReferralForm"
-        // onSubmit={this.props.handleSubmit()}
+        onSubmit={e => this.onSubmit(e)}
       >
         <div className="field">
           <label className="label" htmlFor="referral">Add a link:</label>
@@ -15,6 +26,7 @@ export default class ReferralForm extends Component {
               className="input"
               type="text"
               name="referral"
+              onChange={e => this.props.dispatch(saveNewReferral(e.target.value))}
             />
           </div>
         </div>
@@ -33,3 +45,11 @@ export default class ReferralForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    newReferral: state.referrals.newReferral
+  }
+}
+
+export default connect(mapStateToProps)(ReferralForm);
