@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getReferrals } from '../actions/referrals';
+import { 
+  getReferrals, 
+  setEditingReferral, 
+  putReferral, 
+  saveNewReferral 
+} from '../actions/referrals';
 
 class ReferralTable extends Component {
   componentDidMount() {
     this.props.dispatch(getReferrals());
+  }
+
+  // Sets state.editingId to match id of referral to edit
+  handleEditClick(referralId) {
+    this.props.dispatch(setEditingReferral(referralId));
+  }
+
+  // PUT with new referral title by id, set state.editingId null
+  onSubmit(e, id) {
+    e.preventDefault();
+    const referralObj = {title: this.props.newReferral};
+    this.props.dispatch(putReferral(referralObj, id));
+    this.props.dispatch(setEditingReferral(null));
   }
   
   render() {
@@ -12,7 +30,7 @@ class ReferralTable extends Component {
       return(
         <p>Loading...</p>
       );
-    }else if (this.props.error) {
+    } else if (this.props.error) {
       return (
         <p>{this.props.error}</p>
       );
@@ -34,11 +52,38 @@ class ReferralTable extends Component {
             this.props.referrals.map((ref, index) => {
               return (
                 <tr key={index}>
-                  <td>{ref.title}</td>
+                  {/* Handles edit render logic */}
+                  {this.props.editingId === ref.id ? (
+                    <td>
+                      <form onSubmit={e => this.onSubmit(e, ref.id)}>
+                        <input 
+                          placeholder={ref.title}
+                          onChange={e => this.props.dispatch(saveNewReferral(e.target.value))}
+                        />
+                      </form>
+                    </td>
+                  ) : (
+                    <td>{ref.title}</td>
+                  )}
+
                   <td>{ref.click_count}</td>
+                  {/* Handles edit render logic */}
                   <td>
-                    <button>Edit</button>
+                    {this.props.editingId === ref.id ? (
+                      <button
+                        onClick={() => this.handleEditClick(null)}
+                      >
+                        Cancel
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => this.handleEditClick(ref.id)}
+                      >
+                        Edit
+                      </button>
+                    )}
                   </td>
+
                   <td>
                     <button>Delete</button>
                   </td>
@@ -56,7 +101,9 @@ const mapStateToProps = state => {
   return {
     referrals: state.referrals.referrals,
     loading: state.referrals.loading,
-    error: state.referrals.error
+    error: state.referrals.error,
+    editingId: state.referrals.editingId,
+    newReferral: state.referrals.newReferral
   }
 }
 

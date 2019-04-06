@@ -2,14 +2,16 @@ import {
   GET_REFERRALS_REQUEST, 
   GET_REFERRALS_SUCCESS, 
   GET_REFERRALS_ERROR,
-  SAVE_NEW_REFERRAL
+  SAVE_NEW_REFERRAL,
+  SET_EDITING_REFERRAL
  } from '../actions/types.js';
 
 const initialState = {
   loading: false,
   error: null,
   referrals: [],
-  newReferral: null
+  newReferral: null,
+  editingId: null
 }
 
 export default function referrals(state=initialState, action) {
@@ -36,6 +38,12 @@ export default function referrals(state=initialState, action) {
       return {
         ...state,
         newReferral: action.referral
+      }
+    
+    case SET_EDITING_REFERRAL:
+      return {
+        ...state,
+        editingId: action.referralId
       }
 
     default:

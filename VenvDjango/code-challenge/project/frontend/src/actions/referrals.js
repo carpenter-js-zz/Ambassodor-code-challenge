@@ -2,7 +2,8 @@ import {
   GET_REFERRALS_REQUEST, 
   GET_REFERRALS_SUCCESS, 
   GET_REFERRALS_ERROR,
-  SAVE_NEW_REFERRAL
+  SAVE_NEW_REFERRAL,
+  SET_EDITING_REFERRAL
 } from './types';
 
 // GET REFERRALS
@@ -34,6 +35,7 @@ export const getReferrals = () => dispatch => {
         .catch(err => dispatch(getReferralsError(err)));
 }
 
+// POST referrals
 export const saveNewReferral = referral => ({
   type: SAVE_NEW_REFERRAL,
   referral
@@ -53,4 +55,26 @@ export const postReferral = referral => dispatch => {
       })
         .then(() => dispatch(getReferrals()))
         .catch(err => console.log(err));
+}
+
+// PUT referrals
+export const setEditingReferral = referralId => ({
+  type: SET_EDITING_REFERRAL,
+  referralId
+})
+
+export const putReferral = (referral, id) => dispatch => {
+  return fetch(`/api/referrals/${id}/`, {
+    method: 'PUT',
+    body: JSON.stringify(referral),
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(res => {
+      if (!res.ok) {
+          return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+      .then(() => dispatch(getReferrals()))
+      .catch(err => console.log(err));
 }
