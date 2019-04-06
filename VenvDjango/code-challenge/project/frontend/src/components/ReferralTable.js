@@ -4,7 +4,8 @@ import {
   getReferrals, 
   setEditingReferral, 
   putReferral, 
-  saveNewReferral 
+  saveNewReferral,
+  deleteReferral 
 } from '../actions/referrals';
 
 class ReferralTable extends Component {
@@ -85,7 +86,11 @@ class ReferralTable extends Component {
                   </td>
 
                   <td>
-                    <button>Delete</button>
+                    <button
+                      onClick={() => this.props.dispatch(deleteReferral(ref.id))}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr> 
               );

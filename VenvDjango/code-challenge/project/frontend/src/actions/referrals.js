@@ -36,6 +36,8 @@ export const getReferrals = () => dispatch => {
 }
 
 // POST referrals
+
+// this one is being used for add referral input and edit referral input
 export const saveNewReferral = referral => ({
   type: SAVE_NEW_REFERRAL,
   referral
@@ -57,7 +59,7 @@ export const postReferral = referral => dispatch => {
         .catch(err => console.log(err));
 }
 
-// PUT referrals
+// PUT referral
 export const setEditingReferral = referralId => ({
   type: SET_EDITING_REFERRAL,
   referralId
@@ -74,6 +76,20 @@ export const putReferral = (referral, id) => dispatch => {
           return Promise.reject(res.statusText);
       }
       return res.json();
+    })
+      .then(() => dispatch(getReferrals()))
+      .catch(err => console.log(err));
+}
+
+// DELETE referral
+export const deleteReferral = (id) => dispatch => {
+  return fetch(`/api/referrals/${id}/`, {
+    method: 'DELETE'
+  })
+    .then(res => {
+      if (!res.ok) {
+          return Promise.reject(res.statusText);
+      }
     })
       .then(() => dispatch(getReferrals()))
       .catch(err => console.log(err));
