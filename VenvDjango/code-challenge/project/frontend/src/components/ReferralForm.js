@@ -11,6 +11,7 @@ class ReferralForm extends Component {
     e.preventDefault();
     const referralObj = {title: this.props.newReferral};
     this.props.dispatch(postReferral(referralObj));
+    e.target.referral.value = '';
   }
 
   render() {
