@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import { 
   getReferrals, 
   setEditingReferral, 
@@ -51,6 +52,7 @@ class ReferralTable extends Component {
         <tbody>
           {
             this.props.referrals.map((ref, index) => {
+              const linkUrl = `/landing/${ref.title}`
               return (
                 <tr key={index}>
                   {/* Handles edit render logic */}
@@ -64,7 +66,11 @@ class ReferralTable extends Component {
                       </form>
                     </td>
                   ) : (
-                    <td>{ref.title}</td>
+                    <td>
+                      <Link to={linkUrl}>
+                        {ref.title}
+                      </Link>
+                    </td>
                   )}
 
                   <td>{ref.click_count}</td>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter, Route } from 'react-router-dom'
 
 import MainPage from './MainPage';
 import LandingPage from './LandingPage';
@@ -11,11 +11,12 @@ import store from '../store';
 export default function App() {
   return(
     <Provider store={store}>
-      <React.Fragment>
-        <MainPage />
-        <LandingPage />
-      </React.Fragment>
-    </Provider> 
+      <HashRouter>
+        <Route path='/' exact component={MainPage} />
+        <Route path='/landing/:name' component={LandingPage} />
+      </HashRouter> 
+    </Provider>
+    
   )
 }
 
