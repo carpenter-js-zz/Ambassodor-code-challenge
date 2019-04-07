@@ -6,7 +6,6 @@ import store from '../store';
 
 import MainPage from './MainPage';
 import LandingPage from './LandingPage';
-import '../stylesheets/index.css';
 
 export default function App() {
   return(
