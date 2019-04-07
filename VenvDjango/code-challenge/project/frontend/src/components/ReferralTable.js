@@ -19,11 +19,20 @@ class ReferralTable extends Component {
     this.props.dispatch(setEditingReferral(referralId));
   }
 
+  handleLinkClick(referral) {
+    const newClickCount = referral.click_count + 1;
+    const updateObj = {
+      title: referral.title,
+      click_count: newClickCount
+    };
+    this.props.dispatch(putReferral(updateObj, referral.id))
+  }
+
   // PUT with new referral title by id, set state.editingId null
   onSubmit(e, id) {
     e.preventDefault();
-    const referralObj = {title: this.props.newReferral};
-    this.props.dispatch(putReferral(referralObj, id));
+    const updateObj = {title: this.props.newReferral};
+    this.props.dispatch(putReferral(updateObj, id));
     this.props.dispatch(setEditingReferral(null));
   }
   
@@ -67,7 +76,9 @@ class ReferralTable extends Component {
                     </td>
                   ) : (
                     <td>
-                      <Link to={linkUrl}>
+                      <Link to={linkUrl}
+                        onClick={() => this.handleLinkClick(ref)}
+                      >
                         {ref.title}
                       </Link>
                     </td>
