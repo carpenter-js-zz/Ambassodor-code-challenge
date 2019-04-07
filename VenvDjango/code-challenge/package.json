@@ -22,7 +22,6 @@
     "webpack-cli": "^3.3.0"
   },
   "scripts": {
-    "heroku-postbuild": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development ./project/frontend/src/index.js --output ./project/frontend/static/frontend/main.js",
     "build": "webpack --mode production ./project/frontend/src/index.js --output ./project/frontend/static/frontend/main.js"
