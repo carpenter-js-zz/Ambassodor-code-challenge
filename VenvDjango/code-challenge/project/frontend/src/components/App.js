@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route } from 'react-router-dom'
+import { Provider } from 'react-redux';
+import store from '../store';
 
 import MainPage from './MainPage';
 import LandingPage from './LandingPage';
-
-import { Provider } from 'react-redux';
-import store from '../store';
+import '../stylesheets/index.css';
 
 export default function App() {
   return(
